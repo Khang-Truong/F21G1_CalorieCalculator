@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">F21G1_CalorieCalculator</string>
+    <string name="txtViewTitleText">Calorie Calculator</string>
+    <string name="textViewWelcomeText">Welcome to my app!</string>
+    <string name="btnSignUpText">Sign Up</string>
+    <string name="btnLogInText">Log In</string>
+    <string name="editTextNameHint">User name</string>
+    <string name="editTextPassHint">Password</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="editTextRePassHint">Confirm Password</string>
+    <string name="editTextAgeHint">Age</string>
+    <string name="editTextHeightHint">Height (Inches)</string>
+    <string name="editTextWeightHint">Weight (Lbs)</string>
+    <string name="radioButtonMaleText">Male</string>
+    <string name="radioButtonFemaleText">Female</string>
+</resources>

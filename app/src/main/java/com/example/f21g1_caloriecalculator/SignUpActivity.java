@@ -62,12 +62,22 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             Boolean insert=DB.insertData(name2,pas2, gender, age,height,weight);
                             if(insert==true){
-//                                Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(SignUpActivity.this, "Register successfully! Name: "+name2+
-                                        " Pass: "+pas2+" Gender: "+gender+" Age: "+age+" Height: "+
-                                        height+" Weight: "+weight, Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(SignUpActivity.this, RecommendationsPage.class));
-                            }else{
+                                Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(SignUpActivity.this, "Register successfully! Name: "+name2+
+//                                        " Pass: "+pas2+" Gender: "+gender+" Age: "+age+" Height: "+
+//                                        height+" Weight: "+weight, Toast.LENGTH_SHORT).show();
+
+                                //create a bundle, put data to it, then navigate to empty page
+                                Intent myIntent=new Intent(SignUpActivity.this, RecommendationsPage.class);
+                                Bundle myBundle=new Bundle();
+                                myBundle.putString("NAME",name2);
+                                myBundle.putString("GENDER",gender);
+                                myBundle.putString("AGE",age);
+                                myBundle.putString("HEIGHT",height);
+                                myBundle.putString("WEIGHT",weight);
+                                myIntent.putExtras(myBundle);
+                                startActivity(myIntent);
+                            }else {
                                 Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                             }
                         }else{

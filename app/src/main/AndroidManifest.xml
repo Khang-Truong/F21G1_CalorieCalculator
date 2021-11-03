@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.F21G1_CalorieCalculator">
         <activity
+            android:name=".ExamePerferencce"
+            android:exported="false" />
+        <activity
             android:name=".RecommendationsPage"
             android:exported="true" />
         <activity

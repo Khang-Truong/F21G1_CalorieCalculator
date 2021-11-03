@@ -2,7 +2,9 @@ package com.example.f21g1_caloriecalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editName, editPass;
     Button btnLogIn, btnSignUp;
     DBHelper DB;
+    SharedPreferences sharedpreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
                     if(isAccountExist==true){
                         Toast.makeText(MainActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
                         //chuyen qua homepage
+
+                        // use the sharepreferences to share the preferences
+                        sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("Name", name);
+                        editor.commit();
+
+                        Intent myIntent = new Intent(MainActivity.this, ExamePerferencce.class);
+                        startActivity(myIntent);
+
+
                     }else{
                         Toast.makeText(MainActivity.this, "Account is invalid.", Toast.LENGTH_SHORT).show();
                     }

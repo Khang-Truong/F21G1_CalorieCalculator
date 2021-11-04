@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                     Boolean isAccountExist=DB.checkUserNamePassword(name,pas);
                     if(isAccountExist==true){
                         Toast.makeText(MainActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(MainActivity.this, Calendar.class);
+                        startActivity(intent);
                         //chuyen qua homepage
                     }else{
                         Toast.makeText(MainActivity.this, "Account is invalid.", Toast.LENGTH_SHORT).show();

@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //create table
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
-        MyDB.execSQL("create Table users(userName TEXT primary key, password TEXT, gender TEXT, age TEXT, height TEXT, weight TEXT)");
+        MyDB.execSQL("create Table users(userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, gender TEXT, age TEXT, height TEXT, weight TEXT, exerciseType TEXT)");
     }
 
     //delete table
@@ -27,10 +27,22 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
     }
 
+    public void reCreateDatabase() {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        MyDB.execSQL("drop Table if exists users");
+        onCreate(MyDB);
+    }
+
+    public void updateExercise() {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+
+    }
+
     //insert data to Login.db
     public boolean insertData(String name, String pass, String gender, String age, String height, String weight){
         SQLiteDatabase MyDB=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
+        contentValues.put("userId", (byte[]) null);
         contentValues.put("username", name);
         contentValues.put("password",pass);
         contentValues.put("gender",gender);

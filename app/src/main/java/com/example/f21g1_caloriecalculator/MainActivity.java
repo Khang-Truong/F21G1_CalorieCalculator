@@ -26,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         editName=findViewById(R.id.editTextName);
         editPass=findViewById(R.id.editTextPass);
         btnLogIn=findViewById(R.id.btnLogIn);
         btnSignUp=findViewById(R.id.btnSignUp);
         DB=new DBHelper(MainActivity.this);
+
 
         btnLogIn.setOnClickListener((View v)->{
             String name=editName.getText().toString();

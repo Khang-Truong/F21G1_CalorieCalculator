@@ -22,4 +22,5 @@
     <string name="radioButtonMaleText">Male</string>
     <string name="radioButtonFemaleText">Female</string>
     <string name="btnSaveData">Save Data</string>
+    <string name="txtNote">Note: </string>
 </resources>

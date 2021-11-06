@@ -15,11 +15,13 @@ public class ExamePerferencce extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exame_perferencce);
-        TextView textViewName = findViewById(R.id.textViewName);
+        TextView textViewName = findViewById(R.id.textViewNameR);
 
         sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("Name", null);
         textViewName.setText(name);
+
+
 
     }
 }

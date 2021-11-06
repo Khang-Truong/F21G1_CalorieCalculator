@@ -10,14 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.F21G1_CalorieCalculator">
         <activity
+ 
             android:name=".Calendar"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+         
         </activity>
+
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExamePerferencce"
+            android:exported="false" />
+ 
         <activity
             android:name=".RecommendationsPage"
             android:exported="true" />

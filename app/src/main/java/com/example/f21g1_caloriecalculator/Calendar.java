@@ -89,7 +89,7 @@ public class Calendar extends AppCompatActivity {
 
         try {
 
-            nowData = db.getConsumedCal(userId, key);
+            nowData = db.getTDEE(userId, key);
             Log.d("Calendar", nowData);
         } catch (Exception e) {
             nowData = null;
@@ -115,7 +115,7 @@ public class Calendar extends AppCompatActivity {
             String currentData;
 
             try {
-                currentData = db.getConsumedCal(userId, CurrentKey);
+                currentData = db.getTDEE(userId, CurrentKey);
             } catch (Exception e) {
                 currentData = null;
             }
@@ -135,10 +135,10 @@ public class Calendar extends AppCompatActivity {
 
 
 
-            if (db.getConsumedCal(userId, findingKey) != null) {
-                db.updateConsumedCal(userId, findingKey, value);
+            if (db.getTDEE(userId, findingKey) != null) {
+                db.updateTDEE(userId, findingKey, value);
             } else {
-                db.insertConsumedCal(userId, findingKey, value);
+                db.insertTDEE(userId, findingKey, value);
             }
 
 //            userInputNote.put(findingKey,value);

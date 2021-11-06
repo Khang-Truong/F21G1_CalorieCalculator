@@ -16,6 +16,7 @@ public class UserActivity extends AppCompatActivity {
     Button buttonUpdate;
     Button buttonMeal;
     Button buttonExercise;
+    Button buttonLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,14 @@ public class UserActivity extends AppCompatActivity {
 
         buttonDetail.setOnClickListener((View view) -> {
             startActivity(new Intent(UserActivity.this, RecommendationsPage.class));
+        });
+
+        buttonLogout.findViewById(R.id.buttonLogout);
+        buttonLogout.setOnClickListener((View view) -> {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.apply();
+            startActivity(new Intent(UserActivity.this, MainActivity.class));
         });
 
 

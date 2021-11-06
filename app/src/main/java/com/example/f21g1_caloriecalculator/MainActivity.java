@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putBoolean("SignIn", true);
                         editor.commit();
 
-                        Intent myIntent = new Intent(MainActivity.this, UserActivity.class);
+                        Intent myIntent = new Intent(MainActivity.this, Calendar.class);
                         startActivity(myIntent);
 
 

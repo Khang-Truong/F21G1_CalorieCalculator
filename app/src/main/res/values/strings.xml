@@ -23,4 +23,9 @@
     <string name="radioButtonFemaleText">Female</string>
     <string name="btnSaveData">Save Data</string>
     <string name="txtNote">Note: </string>
+    <string name="txtTDE">TDE: </string>
+    <string name="txtCaloriesBurned">Calories Burned: </string>
+    <string name="txtCaloriesIntake">Calories Intake: </string>
+    <string name="txtSurplus">Surplus: </string>
+    <string name="txtGoFunctionMenu">Go Function Page</string>
 </resources>

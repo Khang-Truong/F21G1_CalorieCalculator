@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.net.Inet4Address;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class Calendar extends AppCompatActivity {
     CalendarView CalendarView;
     EditText textViewExerciseRecord;
     Button buttonSaveData;
+    Button buttonGoFunctionPage;
     int currentDay;
     int currentMonth;
     int currentYear;
@@ -54,6 +57,7 @@ public class Calendar extends AppCompatActivity {
         CalendarView=findViewById(R.id.calendarView);
         textViewExerciseRecord=findViewById(R.id.textViewExerciseRecord);
         buttonSaveData=findViewById(R.id.buttonSaveData);
+        buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
 
 
 
@@ -139,6 +143,10 @@ public class Calendar extends AppCompatActivity {
 
 //            userInputNote.put(findingKey,value);
             Toast.makeText(this, currentYear+" "+currentMonth+" "+currentDay, Toast.LENGTH_SHORT).show();
+        });
+
+        buttonGoFunctionPage.setOnClickListener((View view)-> {
+                startActivity(new Intent(Calendar.this,UserActivity.class));
         });
 
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,11 +28,15 @@ public class Calendar extends AppCompatActivity {
 
     CalendarView CalendarView;
     EditText textViewExerciseRecord;
-    HashMap<String, String> userInputNote;
     Button buttonSaveData;
     int currentDay;
     int currentMonth;
     int currentYear;
+    SharedPreferences sharedPreferences;
+    DBHelper db;
+    int userId;
+    String name;
+    String password;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -40,11 +45,16 @@ public class Calendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+        name = sharedPreferences.getString("Name", null);
+        password = sharedPreferences.getString("Password", null);
+        userId = sharedPreferences.getInt("UserId", -1);
+        db = new DBHelper(Calendar.this);
 
         CalendarView=findViewById(R.id.calendarView);
         textViewExerciseRecord=findViewById(R.id.textViewExerciseRecord);
         buttonSaveData=findViewById(R.id.buttonSaveData);
-        userInputNote=new HashMap<String, String>();
+
 
 
 
@@ -70,8 +80,18 @@ public class Calendar extends AppCompatActivity {
 
          //display the text in this date
         String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-        textViewExerciseRecord.setText(userInputNote.get(key));
+//        textViewExerciseRecord.setText(userInputNote.get(key));
+        String nowData;
 
+        try {
+
+            nowData = db.getConsumedCal(userId, key);
+            Log.d("Calendar", nowData);
+        } catch (Exception e) {
+            nowData = null;
+        }
+        if (nowData != null)
+            textViewExerciseRecord.setText(nowData);
 
 
 
@@ -85,10 +105,20 @@ public class Calendar extends AppCompatActivity {
             currentYear=i;
 
 
-            String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
 
-            //display the text in chosen day
-            textViewExerciseRecord.setText(userInputNote.get(CurrentKey));
+
+            String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
+            String currentData;
+
+            try {
+                currentData = db.getConsumedCal(userId, CurrentKey);
+            } catch (Exception e) {
+                currentData = null;
+            }
+
+
+            if (currentData != null)
+                textViewExerciseRecord.setText(currentData);
         });
 
 
@@ -97,7 +127,17 @@ public class Calendar extends AppCompatActivity {
             String findingKey= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
             String value= textViewExerciseRecord.getText().toString();
 
-            userInputNote.put(findingKey,value);
+
+
+
+
+            if (db.getConsumedCal(userId, findingKey) != null) {
+                db.updateConsumedCal(userId, findingKey, value);
+            } else {
+                db.insertConsumedCal(userId, findingKey, value);
+            }
+
+//            userInputNote.put(findingKey,value);
             Toast.makeText(this, currentYear+" "+currentMonth+" "+currentDay, Toast.LENGTH_SHORT).show();
         });
 

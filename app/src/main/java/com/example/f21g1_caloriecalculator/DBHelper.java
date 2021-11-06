@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, gender TEXT, age TEXT, height TEXT, weight TEXT, TDEE TEXT)");
+        MyDB.execSQL("create Table calendardata(userId INTEGER , date TEXT , consumedCal TEXT, PRIMARY KEY (userID, date))");
     }
 
     //delete table
@@ -33,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void reCreateDatabase() {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         MyDB.execSQL("drop Table if exists users");
+        MyDB.execSQL("drop Table if exists calendardata");
         onCreate(MyDB);
     }
 
@@ -105,6 +107,43 @@ public class DBHelper extends SQLiteOpenHelper {
             return userId;
         } else
             return -1;
+    }
+
+    public boolean insertConsumedCal(int userId, String date, String dataInput) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("date", date);
+        contentValues.put("consumedCal",dataInput);
+
+        long result=MyDB.insert("calendardata",null,contentValues);
+        if(result==-1)return false;
+        else return true;
+
+    }
+
+    public String getConsumedCal(int userId, String date) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+
+        Cursor cursor=MyDB.rawQuery("Select consumedCal from calendardata where userId=? and date=?",new String[]{String.format("%d", userId), date});
+        if (cursor.moveToFirst()) {
+            String result = cursor.getString(0);
+            Log.d("DB", "Get !");
+            return result;
+        } else {
+            Log.d("DB", "False !");
+        }
+            return null;
+    }
+
+    public boolean updateConsumedCal(int userId, String date, String dataInput) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+        try {
+            MyDB.execSQL("Update calendardata SET consumedCal = ? where userId = ? and date = ?", new String[] { dataInput, String.format("%d", userId), date});
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

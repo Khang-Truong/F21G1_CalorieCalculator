@@ -29,10 +29,10 @@ import java.util.Map;
 public class Calendar extends AppCompatActivity {
 
     CalendarView CalendarView;
-    EditText textViewExerciseRecord;
     Button buttonSaveData;
     Button buttonGoFunctionPage;
     TextView textViewCalBurned;
+    TextView textViewTDE;
 
 
 
@@ -59,7 +59,7 @@ public class Calendar extends AppCompatActivity {
         db = new DBHelper(Calendar.this);
 
         CalendarView=findViewById(R.id.calendarView);
-        textViewExerciseRecord=findViewById(R.id.textViewExerciseRecord);
+        textViewTDE=findViewById(R.id.textViewTDE);
         buttonSaveData=findViewById(R.id.buttonSaveData);
         buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
         textViewCalBurned=findViewById(R.id.textViewCalBurned);
@@ -100,7 +100,7 @@ public class Calendar extends AppCompatActivity {
             nowData = null;
         }
 
-        textViewExerciseRecord.setText(nowData);
+        textViewTDE.setText(nowData);
 
         //display in CaloriesBurningBox
         String CaloriesBurnedAmount;
@@ -126,7 +126,7 @@ public class Calendar extends AppCompatActivity {
 
         CalendarView.setOnDateChangeListener((@NonNull CalendarView calendarView, int i, int i1, int i2) ->{
 
-            textViewExerciseRecord.setText("");
+            textViewTDE.setText("");
             
             // if click, set date to the chosen day
             currentDay=i2;
@@ -145,7 +145,7 @@ public class Calendar extends AppCompatActivity {
                 currentData = null;
             }
 
-            textViewExerciseRecord.setText(currentData);
+            textViewTDE.setText(currentData);
 
             //display in CaloriesBurningBox
             String CaloriesBurnedAmount2;
@@ -171,7 +171,7 @@ public class Calendar extends AppCompatActivity {
         buttonSaveData.setOnClickListener((View view) ->{
 
             String findingKey= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-            String value= textViewExerciseRecord.getText().toString();
+            String value= textViewTDE.getText().toString();
 
 
 
@@ -196,13 +196,13 @@ public class Calendar extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        EditText textViewExerciseRecord= findViewById(R.id.textViewExerciseRecord);
+        TextView textViewTDE= findViewById(R.id.textViewTDE);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(!textViewExerciseRecord.getText().toString().isEmpty())
-        editor.putString("EditTextNow", textViewExerciseRecord.getText().toString());
+        if(!textViewTDE.getText().toString().isEmpty())
+        editor.putString("EditTextNow", textViewTDE.getText().toString());
         editor.commit();
     }
 

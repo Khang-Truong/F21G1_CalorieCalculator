@@ -10,16 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.F21G1_CalorieCalculator">
         <activity
+            android:name=".ExerciseActivity"
+            android:exported="false" />
+        <activity
             android:name=".Calendar"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".UserActivity"
             android:exported="true" />
         <activity
             android:name=".ExamePerferencce"
             android:exported="false" />
- 
         <activity
             android:name=".RecommendationsPage"
             android:exported="true" />

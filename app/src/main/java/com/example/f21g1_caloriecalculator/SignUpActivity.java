@@ -92,6 +92,5 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.e(TAG, e.getMessage());
             }
         });
-
     }
 }

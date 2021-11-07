@@ -4,6 +4,7 @@ import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -156,6 +157,7 @@ public class RecommendationsPage extends AppCompatActivity {
         buttonSubmitExercise.setOnClickListener((View view) -> {
             Toast.makeText(RecommendationsPage.this, "Save to Database Successful!", Toast.LENGTH_SHORT).show();
             db.updateTDEE(TDEE, name);
+            startActivity(new Intent(RecommendationsPage.this,Calendar.class));
         });
 
     }

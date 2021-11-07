@@ -57,6 +57,8 @@ public class ExerciseActivity extends AppCompatActivity {
         ListViewExercise.setAdapter(exerciseList);
 
 
+
+
         //set click listener in each element in the listView
         ListViewExercise.setOnItemClickListener((AdapterView<?> adapterView, View view, int i, long l)-> {
 

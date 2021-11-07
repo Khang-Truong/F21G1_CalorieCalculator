@@ -122,6 +122,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public String getTDEE(int userId) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+
+        Cursor cursor=MyDB.rawQuery("Select TDEE from users where userId=?",new String[]{String.format("%d", userId)});
+        if (cursor.moveToFirst()) {
+            String result = cursor.getString(0);
+
+            return result;
+        } else {
+
+        }
+        return null;
+    }
+
     public String getTDEE(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
 

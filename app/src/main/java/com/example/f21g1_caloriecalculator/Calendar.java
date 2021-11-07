@@ -68,6 +68,8 @@ public class Calendar extends AppCompatActivity {
 
 
 
+
+
         CalendarView.setDate(System.currentTimeMillis(),false,true );
 
 
@@ -92,9 +94,15 @@ public class Calendar extends AppCompatActivity {
         //============== display==================
         //display in Edit Text Box
         String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
+        try {
+            db.insertTDEE(userId, key, db.getTDEE(userId));
+        } catch (Exception e) {
+
+        }
+
         String nowData;
         try {
-            nowData = db.getTDEE(userId, key);
+            nowData = db.getTDEE(userId);
             Log.d("Calendar", nowData);
         } catch (Exception e) {
             nowData = null;
@@ -105,7 +113,7 @@ public class Calendar extends AppCompatActivity {
         //display in CaloriesBurningBox
         String CaloriesBurnedAmount;
         try {
-            CaloriesBurnedAmount= db.getExerciseCal(userId,key);
+            CaloriesBurnedAmount= db.getExerciseCal(userId, key);
         } catch (Exception e) {
             CaloriesBurnedAmount = null;
         }
@@ -138,9 +146,14 @@ public class Calendar extends AppCompatActivity {
             //============== display==================
             //display in Edit Text Box
             String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
+            try {
+                db.insertTDEE(userId, CurrentKey, db.getTDEE(userId));
+            } catch (Exception e) {
+
+            }
             String currentData;
             try {
-                currentData = db.getTDEE(userId, CurrentKey);
+                currentData = db.getTDEE(userId);
             } catch (Exception e) {
                 currentData = null;
             }
@@ -150,7 +163,7 @@ public class Calendar extends AppCompatActivity {
             //display in CaloriesBurningBox
             String CaloriesBurnedAmount2;
             try {
-                CaloriesBurnedAmount2= db.getExerciseCal(userId,CurrentKey);
+                CaloriesBurnedAmount2= db.getExerciseCal(userId, CurrentKey);
             } catch (Exception e) {
                 CaloriesBurnedAmount2 = null;
             }

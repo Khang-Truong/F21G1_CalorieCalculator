@@ -29,9 +29,13 @@ import java.util.Map;
 public class Calendar extends AppCompatActivity {
 
     CalendarView CalendarView;
-    EditText textViewExerciseRecord;
     Button buttonSaveData;
     Button buttonGoFunctionPage;
+    TextView textViewCalBurned;
+    TextView textViewTDE;
+
+
+
     int currentDay;
     int currentMonth;
     int currentYear;
@@ -55,9 +59,10 @@ public class Calendar extends AppCompatActivity {
         db = new DBHelper(Calendar.this);
 
         CalendarView=findViewById(R.id.calendarView);
-        textViewExerciseRecord=findViewById(R.id.textViewExerciseRecord);
+        textViewTDE=findViewById(R.id.textViewTDE);
         buttonSaveData=findViewById(R.id.buttonSaveData);
         buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
+        textViewCalBurned=findViewById(R.id.textViewCalBurned);
 
 
 
@@ -82,26 +87,46 @@ public class Calendar extends AppCompatActivity {
          currentYear = currentdate.getYear();
 
 
-         //display the text in this date
+
+
+        //============== display==================
+        //display in Edit Text Box
         String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-//        textViewExerciseRecord.setText(userInputNote.get(key));
         String nowData;
-
         try {
-
             nowData = db.getTDEE(userId, key);
             Log.d("Calendar", nowData);
         } catch (Exception e) {
             nowData = null;
         }
-        if (nowData != null)
-            textViewExerciseRecord.setText(nowData);
+
+        textViewTDE.setText(nowData);
+
+        //display in CaloriesBurningBox
+        String CaloriesBurnedAmount;
+        try {
+            CaloriesBurnedAmount= db.getExerciseCal(userId,key);
+        } catch (Exception e) {
+            CaloriesBurnedAmount = null;
+        }
+
+        textViewCalBurned.setText(CaloriesBurnedAmount);
+
+
+
+
+
+
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Date",key);
+        editor.commit();
 
 
 
         CalendarView.setOnDateChangeListener((@NonNull CalendarView calendarView, int i, int i1, int i2) ->{
 
-            textViewExerciseRecord.setText("");
+            textViewTDE.setText("");
             
             // if click, set date to the chosen day
             currentDay=i2;
@@ -110,26 +135,43 @@ public class Calendar extends AppCompatActivity {
 
 
 
-
+            //============== display==================
+            //display in Edit Text Box
             String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
             String currentData;
-
             try {
                 currentData = db.getTDEE(userId, CurrentKey);
             } catch (Exception e) {
                 currentData = null;
             }
 
+            textViewTDE.setText(currentData);
 
-            if (currentData != null)
-                textViewExerciseRecord.setText(currentData);
+            //display in CaloriesBurningBox
+            String CaloriesBurnedAmount2;
+            try {
+                CaloriesBurnedAmount2= db.getExerciseCal(userId,CurrentKey);
+            } catch (Exception e) {
+                CaloriesBurnedAmount2 = null;
+            }
+
+            textViewCalBurned.setText(CaloriesBurnedAmount2);
+
+
+
+
+
+            //sharePreference this date
+            SharedPreferences.Editor editor1 = sharedPreferences.edit();
+            editor1.putString("Date",CurrentKey);
+            editor1.commit();
         });
 
 
         buttonSaveData.setOnClickListener((View view) ->{
 
             String findingKey= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-            String value= textViewExerciseRecord.getText().toString();
+            String value= textViewTDE.getText().toString();
 
 
 
@@ -148,22 +190,19 @@ public class Calendar extends AppCompatActivity {
         buttonGoFunctionPage.setOnClickListener((View view)-> {
                 startActivity(new Intent(Calendar.this,UserActivity.class));
         });
-
-
-
     }
 
 
     protected void onPause() {
         super.onPause();
 
-        EditText textViewExerciseRecord= findViewById(R.id.textViewExerciseRecord);
+        TextView textViewTDE= findViewById(R.id.textViewTDE);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(!textViewExerciseRecord.getText().toString().isEmpty())
-        editor.putString("EditTextNow", textViewExerciseRecord.getText().toString());
+        if(!textViewTDE.getText().toString().isEmpty())
+        editor.putString("EditTextNow", textViewTDE.getText().toString());
         editor.commit();
     }
 
@@ -174,4 +213,9 @@ public class Calendar extends AppCompatActivity {
         int month = today.getMonthValue();
         return month;
     }
+
+//    public String displayCaloriesInBurningBox(int userId, String date){
+//        String Calories= db.getExerciseCal(userId,date);
+//        return Calories;
+//    }
 }

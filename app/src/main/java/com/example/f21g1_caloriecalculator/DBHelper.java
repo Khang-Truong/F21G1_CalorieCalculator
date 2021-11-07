@@ -139,6 +139,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
+
             MyDB.execSQL("Update calendardata SET TDEE = ? where userId = ? and date = ?", new String[] { dataInput, String.format("%d", userId), date});
             return true;
         } catch (Exception e) {
@@ -189,6 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateExerciseCal(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
+            //Log.d("try","inside");
             MyDB.execSQL("Update calendardata SET exerciseCal = ? where userId = ? and date = ?", new String[] { dataInput, String.format("%d", userId), date});
             return true;
         } catch (Exception e) {

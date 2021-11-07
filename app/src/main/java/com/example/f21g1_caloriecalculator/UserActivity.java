@@ -31,12 +31,19 @@ public class UserActivity extends AppCompatActivity {
             startActivity(new Intent(UserActivity.this, RecommendationsPage.class));
         });
 
-        buttonLogout.findViewById(R.id.buttonLogout);
+        buttonLogout = findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener((View view) -> {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.clear();
             editor.apply();
             startActivity(new Intent(UserActivity.this, MainActivity.class));
+        });
+
+        buttonExercise=findViewById(R.id.buttonExercise);
+        buttonExercise.setOnClickListener((View view)-> {
+
+            startActivity(new Intent(UserActivity.this,ExerciseActivity.class));
+
         });
 
 

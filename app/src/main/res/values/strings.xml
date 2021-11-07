@@ -28,4 +28,6 @@
     <string name="txtCaloriesIntake">Calories Intake: </string>
     <string name="txtSurplus">Surplus: </string>
     <string name="txtGoFunctionMenu">Go Function Page</string>
+    <string name="txtExerciseYouWant">Choose the exercise: </string>
+    <string name="txtManuallyAddExerciseRecord">Manually add exercise records</string>
 </resources>

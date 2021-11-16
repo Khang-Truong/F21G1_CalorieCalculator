@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.F21G1_CalorieCalculator">
         <activity
+            android:name=".ManuallyInputExerciseActvity"
+            android:exported="false" />
+        <activity
             android:name=".ExerciseActivity"
             android:exported="false" />
         <activity

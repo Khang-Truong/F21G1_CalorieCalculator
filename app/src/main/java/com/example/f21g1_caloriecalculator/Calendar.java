@@ -29,7 +29,6 @@ import java.util.Map;
 public class Calendar extends AppCompatActivity {
 
     CalendarView CalendarView;
-    Button buttonSaveData;
     Button buttonGoFunctionPage;
     TextView textViewCalBurned;
     TextView textViewTDE;
@@ -60,7 +59,6 @@ public class Calendar extends AppCompatActivity {
 
         CalendarView=findViewById(R.id.calendarView);
         textViewTDE=findViewById(R.id.textViewTDE);
-        buttonSaveData=findViewById(R.id.buttonSaveData);
         buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
         textViewCalBurned=findViewById(R.id.textViewCalBurned);
 
@@ -181,24 +179,6 @@ public class Calendar extends AppCompatActivity {
         });
 
 
-        buttonSaveData.setOnClickListener((View view) ->{
-
-            String findingKey= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-            String value= textViewTDE.getText().toString();
-
-
-
-
-
-            if (db.getTDEE(userId, findingKey) != null) {
-                db.updateTDEE(userId, findingKey, value);
-            } else {
-                db.insertTDEE(userId, findingKey, value);
-            }
-
-//            userInputNote.put(findingKey,value);
-            Toast.makeText(this, currentYear+" "+currentMonth+" "+currentDay, Toast.LENGTH_SHORT).show();
-        });
 
         buttonGoFunctionPage.setOnClickListener((View view)-> {
                 startActivity(new Intent(Calendar.this,UserActivity.class));

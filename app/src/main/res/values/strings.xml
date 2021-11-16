@@ -30,4 +30,12 @@
     <string name="txtGoFunctionMenu">Go Function Page</string>
     <string name="txtExerciseYouWant">Choose the exercise: </string>
     <string name="txtManuallyAddExerciseRecord">Manually add exercise records</string>
+    <string name="txtChooseExercise" >Choose Exercise: </string>
+    <string name="txtHowlong">How long did you work out (minutes)</string>
+    <string name="txtGetResult">Display Total Calories</string>
+    <string-array name="ExerciseArray">
+        <item> Walking</item>
+        <item> jogging</item>
+        <item> Biking</item>
+    </string-array>
 </resources>

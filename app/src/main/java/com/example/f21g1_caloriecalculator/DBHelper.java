@@ -10,6 +10,9 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME="LoginDB.db";
 
@@ -22,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, gender TEXT, age TEXT, height TEXT, weight TEXT, TDEE TEXT)");
         MyDB.execSQL("create Table calendardata(userId INTEGER , date TEXT , TDEE TEXT, foodCal TEXT, exerciseCal TEXT, PRIMARY KEY (userID, date))");
+        MyDB.execSQL("create Table mealdata(userId INTEGER, date TEXT, mealName TEXT, Calories TEXT)");
     }
 
     //delete table
@@ -35,6 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         MyDB.execSQL("drop Table if exists users");
         MyDB.execSQL("drop Table if exists calendardata");
+        MyDB.execSQL("drop Table if exists mealdata");
         onCreate(MyDB);
     }
 
@@ -211,6 +216,43 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public boolean insertMealData(int userId, String date, String mealName, String mealCal) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("date", date);
+        contentValues.put("mealName", mealName);
+        contentValues.put("Calories", mealCal);
+
+        long result=MyDB.insert("mealdata",null,contentValues);
+        if(result==-1)return false;
+        else return true;
+    }
+
+    public List<String[]> getMealData(int userId, String date) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+        List<String[]> myMealData = new ArrayList<>();
+        Cursor cursor=MyDB.rawQuery("Select mealName AND Calories from mealdata where userId=? and date=?",new String[]{String.format("%d", userId), date});
+
+
+
+        if (cursor.moveToFirst()) {
+            myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0) == null)
+                    break;
+                else {
+                    myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
+                }
+            }
+        } else {
+
+        }
+        return null;
+    }
+
+
 
 
 

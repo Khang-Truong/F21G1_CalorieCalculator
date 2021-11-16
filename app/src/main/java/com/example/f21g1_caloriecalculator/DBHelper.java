@@ -43,9 +43,10 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(MyDB);
     }
 
-    public void updateTDEE(String TDEE, String name) {
+    public void updateTDEE(String TDEE, String userId) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        MyDB.execSQL("Update users SET TDEE = ? where userName = ?", new String[] { TDEE, name});
+        MyDB.execSQL("Update users SET TDEE = ? where userId = ?", new String[] { TDEE, userId});
+        MyDB.execSQL("Update calendarData SET TDEE =? where userId = ?", new String[] {TDEE, userId});
     }
 
     //insert data to Login.db
@@ -250,6 +251,37 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
         return null;
+    }
+
+    public boolean updateAge(int userId, String age) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        try {
+            MyDB.execSQL("Update users SET age = ? where userId = ?", new String[] { age, String.valueOf(userId)});
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public boolean updateHeight(int userId, String height) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        try {
+            MyDB.execSQL("Update users SET height = ? where userId = ?", new String[] { height, String.valueOf(userId)});
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean updateWeight(int userId, String weight) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        try {
+            MyDB.execSQL("Update users SET weight = ? where userId = ?", new String[] { weight, String.valueOf(userId)});
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

@@ -53,6 +53,11 @@ public class UserActivity extends AppCompatActivity {
 
         });
 
+        buttonUpdate = findViewById(R.id.buttonUpdate);
+        buttonUpdate.setOnClickListener((View view) -> {
+            startActivity(new Intent(UserActivity.this, UserUpdate.class));
+        });
+
 
     }
 }

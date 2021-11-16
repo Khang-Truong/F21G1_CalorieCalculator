@@ -65,14 +65,10 @@ public class MainActivity extends AppCompatActivity {
                     Boolean isAccountExist=DB.checkUserNamePassword(name,pas);
                     if(isAccountExist==true){
                         Toast.makeText(MainActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(MainActivity.this, Calendar.class);
-                        startActivity(intent);
                         //chuyen qua homepage
                         int userId = DB.getUserId(name, pas);
 //                        Log.d("Debug",userId + "!");
-
                         DB.getDetail(name, pas, userId);
-
                         // use the sharepreferences to share the preferences
                         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -82,10 +78,12 @@ public class MainActivity extends AppCompatActivity {
                         editor.putBoolean("SignIn", true);
                         editor.commit();
 
-                        Intent myIntent = new Intent(MainActivity.this, Calendar.class);
-                        startActivity(myIntent);
-
-
+                        if(DB.getTDEE(userId)==null){
+                            startActivity(new Intent(MainActivity.this,RecommendationsPage.class));
+                        }else{
+                            Intent myIntent = new Intent(MainActivity.this, Calendar.class);
+                            startActivity(myIntent);
+                        }
                     }else{
                         Toast.makeText(MainActivity.this, "Account is invalid.", Toast.LENGTH_SHORT).show();
                     }

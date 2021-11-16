@@ -13,7 +13,7 @@
             android:name=".MealActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.MealActivity"
+            android:name=".ManuallyInputExerciseActvity"
             android:exported="false" />
         <activity
             android:name=".ExerciseActivity"

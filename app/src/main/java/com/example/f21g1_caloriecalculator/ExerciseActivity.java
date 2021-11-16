@@ -11,6 +11,7 @@ import android.os.DeadObjectException;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class ExerciseActivity extends AppCompatActivity {
     String name;
     String password;
     String date;
-
+    Button buttonManuallyAddBurningRecord;
 
 
     @Override
@@ -47,6 +48,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
         ListViewExercise=findViewById(R.id.ListViewExercise);
+        buttonManuallyAddBurningRecord=findViewById(R.id.buttonManuallyAddBurningRecord);
 
         //add All Exercise Name and image in the list
         addExerciseData();
@@ -74,9 +76,7 @@ public class ExerciseActivity extends AppCompatActivity {
                     totalCaloriesBurned=Double.parseDouble(db.getExerciseCal(userId,date))+75;
                     db.updateExerciseCal(userId,date,String.format("%.2f",totalCaloriesBurned));
                 }
-                //Toast.makeText(this,date,Toast.LENGTH_SHORT).show();
-                Toast.makeText(this,userId + "!" ,Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "75 calories has been added into your daily calorie's burning", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "75 calories has been added into your daily calorie's burning", Toast.LENGTH_SHORT).show();
             }
             if(i==1){
                 startActivity(new Intent(ExerciseActivity.this,Calendar.class));
@@ -131,6 +131,12 @@ public class ExerciseActivity extends AppCompatActivity {
         });
 
 
+        //button to connect ManuallyInputExerciseActvity page
+        buttonManuallyAddBurningRecord.setOnClickListener((View view)-> {
+            startActivity(new Intent(ExerciseActivity.this,ManuallyInputExerciseActvity.class));
+        });
+
+
 
 
 
@@ -138,11 +144,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
     private void addExerciseData(){
-        ExerciseList.add(new Exercise("15 Min Exercise",R.drawable.exercisein15min));
-        ExerciseList.add(new Exercise("12 Min Exercise",R.drawable.exercisein12min));
-        ExerciseList.add(new Exercise("10 Min Exercise",R.drawable.exercisein10min));
-        ExerciseList.add(new Exercise("8 Min Exercise",R.drawable.exercisein8min));
-        ExerciseList.add(new Exercise("6 Min Exercise",R.drawable.exercisein6min));
+        ExerciseList.add(new Exercise("15 Min Exercise (Burn 75 calories)",R.drawable.exercisein15min));
+        ExerciseList.add(new Exercise("12 Min Exercise (Burn 60 calories)",R.drawable.exercisein12min));
+        ExerciseList.add(new Exercise("10 Min Exercise (Burn 50 calories)",R.drawable.exercisein10min));
+        ExerciseList.add(new Exercise("8 Min Exercise (Burn 40 calories)",R.drawable.exercisein8min));
+        ExerciseList.add(new Exercise("6 Min Exercise (Burn 30 calories)",R.drawable.exercisein6min));
 
 
     }

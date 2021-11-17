@@ -1,6 +1,5 @@
 package com.example.f21g1_caloriecalculator;
 
-import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,8 +12,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 
@@ -58,7 +55,7 @@ public class RecommendationsPage extends AppCompatActivity {
         textViewBMR = findViewById(R.id.textViewBMRR);
         textViewShowCal = findViewById(R.id.textViewShowCal);
         buttonSubmitExercise = findViewById(R.id.buttonSubmitExercise);
-        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroupUpdate);
 
         db = new DBHelper(RecommendationsPage.this);
 
@@ -156,7 +153,7 @@ public class RecommendationsPage extends AppCompatActivity {
 
         buttonSubmitExercise.setOnClickListener((View view) -> {
             Toast.makeText(RecommendationsPage.this, "Save to Database Successful!", Toast.LENGTH_SHORT).show();
-            db.updateTDEE(TDEE, name);
+            db.updateTDEE(TDEE, String.valueOf(userId));
             startActivity(new Intent(RecommendationsPage.this,Calendar.class));
         });
 

@@ -34,7 +34,7 @@
     <string name="mealname">Meal:</string>
     <string name="mealcal">Estimate Calories:</string>
 
-    <string name="txtChooseExercise" >Choose Exercise: </string>
+    <string name="txtChooseExercise">Choose Exercise: </string>
     <string name="txtHowlong">How long did you work out (minutes)</string>
     <string name="txtGetResult">Display Total Calories</string>
     <string-array name="ExerciseArray">

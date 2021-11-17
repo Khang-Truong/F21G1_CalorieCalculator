@@ -24,6 +24,7 @@ import java.net.Inet4Address;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Calendar extends AppCompatActivity {
@@ -32,6 +33,7 @@ public class Calendar extends AppCompatActivity {
     Button buttonGoFunctionPage;
     TextView textViewCalBurned;
     TextView textViewTDE;
+    TextView textViewCalIntake;
 
 
 
@@ -61,7 +63,7 @@ public class Calendar extends AppCompatActivity {
         textViewTDE=findViewById(R.id.textViewTDE);
         buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
         textViewCalBurned=findViewById(R.id.textViewCalBurned);
-
+        textViewCalIntake=findViewById(R.id.textViewCalIntake);
 
 
 
@@ -91,7 +93,7 @@ public class Calendar extends AppCompatActivity {
 
         //============== display==================
         //display in Edit Text Box
-        String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
+        String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay); //CaloriesBurn's key
         try {
             db.insertTDEE(userId, key, db.getTDEE(userId));
         } catch (Exception e) {
@@ -117,6 +119,23 @@ public class Calendar extends AppCompatActivity {
         }
 
         textViewCalBurned.setText(CaloriesBurnedAmount);
+
+
+        //display in Calories Intake box
+        List<String[]> CaloriesIntakeAmount;
+        try {
+            CaloriesIntakeAmount= db.getMealData(userId, key);
+            int calSum = 0;
+            for (String[] s : CaloriesIntakeAmount) {
+                calSum += Integer.parseInt(s[1]);
+
+            }
+            textViewCalIntake.setText(String.valueOf(calSum));
+        } catch (Exception e) {
+            CaloriesIntakeAmount = null;
+        }
+
+
 
 
 
@@ -168,6 +187,22 @@ public class Calendar extends AppCompatActivity {
 
             textViewCalBurned.setText(CaloriesBurnedAmount2);
 
+
+            //display in Calories Intake box
+            List<String[]> CaloriesIntakeAmount2;
+            try {
+                CaloriesIntakeAmount2= db.getMealData(userId, key);
+                int calSum = 0;
+                Log.i("Cal", "0");
+                for (String[] s : CaloriesIntakeAmount2) {
+                    calSum += Integer.parseInt(s[1]);
+                    Log.i("Cal", i + "times");
+                }
+                Log.i("Cal", calSum + "!");
+                textViewCalIntake.setText(String.valueOf(calSum));
+            } catch (Exception e) {
+                CaloriesIntakeAmount2 = null;
+            }
 
 
 

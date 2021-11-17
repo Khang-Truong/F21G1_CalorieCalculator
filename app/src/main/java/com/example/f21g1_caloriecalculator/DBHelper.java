@@ -234,6 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<String[]> getMealData(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         List<String[]> myMealData = new ArrayList<>();
+        Log.i("GetMealData", userId + "!" + date + "!");
         Cursor cursor=MyDB.rawQuery("Select mealName AND Calories from mealdata where userId=? and date=?",new String[]{String.format("%d", userId), date});
 
 
@@ -247,10 +248,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
                 }
             }
+            return myMealData;
         } else {
-
+            return null;
         }
-        return null;
+
     }
 
     public boolean updateAge(int userId, String age) {

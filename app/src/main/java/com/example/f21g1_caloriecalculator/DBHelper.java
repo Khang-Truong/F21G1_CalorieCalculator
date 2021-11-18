@@ -231,28 +231,31 @@ public class DBHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public List<String[]> getMealData(int userId, String date) {
+    public List<String> getMealData(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
-        List<String[]> myMealData = new ArrayList<>();
-        Log.i("GetMealData", userId + "!" + date + "!");
-        Cursor cursor=MyDB.rawQuery("Select mealName AND Calories from mealdata where userId=? and date=?",new String[]{String.format("%d", userId), date});
+        List<String> myMealData = new ArrayList<>();
+        Log.i("GetMealData", date + " User ID is: " + userId);
+
+
+        Cursor cursor = MyDB.rawQuery("Select Calories from mealdata where userId= ? and date= ?",new String[]{String.format("%d", userId), date});
+
+        Log.i("GetMealData", "Cursor run " + cursor.getCount() );
+        cursor.moveToFirst();
 
 
 
-        if (cursor.moveToFirst()) {
-            myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
-            while (cursor.moveToNext()) {
-                if (cursor.getString(0) == null)
-                    break;
-                else {
-                    myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
-                }
+
+        myMealData.add(cursor.getString(0));
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0) == null)
+                break;
+            else {
+                Log.i("GetMealData", "Cursor run " + cursor.getString(0) );
+                myMealData.add(cursor.getString(0));
             }
-            return myMealData;
-        } else {
-            return null;
         }
 
+        return myMealData;
     }
 
     public boolean updateAge(int userId, String age) {

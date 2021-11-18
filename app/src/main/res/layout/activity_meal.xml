@@ -73,7 +73,7 @@
         android:layout_marginRight="31dp"
         android:ems="10"
         android:hint="How many calories"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMealName" />
 

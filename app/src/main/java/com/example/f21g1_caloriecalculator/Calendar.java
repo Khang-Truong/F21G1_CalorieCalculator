@@ -94,11 +94,14 @@ public class Calendar extends AppCompatActivity {
         //============== display==================
         //display in Edit Text Box
         String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay); //CaloriesBurn's key
-        try {
-            db.insertTDEE(userId, key, db.getTDEE(userId));
-        } catch (Exception e) {
+        if (db.getTDEE(userId, key) == null) {
+            try {
+                db.insertTDEE(userId, key, db.getTDEE(userId));
+            } catch (Exception e) {
 
+            }
         }
+
 
         String nowData;
         try {
@@ -122,15 +125,18 @@ public class Calendar extends AppCompatActivity {
 
 
         //display in Calories Intake box
-        List<String[]> CaloriesIntakeAmount;
+        List<String> CaloriesIntakeAmount;
         try {
             CaloriesIntakeAmount= db.getMealData(userId, key);
             int calSum = 0;
-            for (String[] s : CaloriesIntakeAmount) {
-                calSum += Integer.parseInt(s[1]);
+//            Log.i("Cal", "DB get meal ok!");
+            for (String s : CaloriesIntakeAmount) {
+                calSum += Integer.parseInt(s);
+//                Log.i("Cal", calSum + "!");
 
             }
             textViewCalIntake.setText(String.valueOf(calSum));
+
         } catch (Exception e) {
             CaloriesIntakeAmount = null;
         }
@@ -150,7 +156,7 @@ public class Calendar extends AppCompatActivity {
 
 
         CalendarView.setOnDateChangeListener((@NonNull CalendarView calendarView, int i, int i1, int i2) ->{
-
+            textViewCalIntake.setText("");
             textViewTDE.setText("");
             
             // if click, set date to the chosen day
@@ -163,11 +169,15 @@ public class Calendar extends AppCompatActivity {
             //============== display==================
             //display in Edit Text Box
             String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
-            try {
-                db.insertTDEE(userId, CurrentKey, db.getTDEE(userId));
-            } catch (Exception e) {
+            Log.i("Currentkey", CurrentKey);
+            if (db.getTDEE(userId, CurrentKey) == null) {
+                try {
+                    db.insertTDEE(userId, CurrentKey, db.getTDEE(userId));
+                } catch (Exception e) {
 
+                }
             }
+
             String currentData;
             try {
                 currentData = db.getTDEE(userId);
@@ -189,13 +199,13 @@ public class Calendar extends AppCompatActivity {
 
 
             //display in Calories Intake box
-            List<String[]> CaloriesIntakeAmount2;
+            List<String> CaloriesIntakeAmount2;
             try {
-                CaloriesIntakeAmount2= db.getMealData(userId, key);
+                CaloriesIntakeAmount2= db.getMealData(userId, CurrentKey);
                 int calSum = 0;
                 Log.i("Cal", "0");
-                for (String[] s : CaloriesIntakeAmount2) {
-                    calSum += Integer.parseInt(s[1]);
+                for (String s : CaloriesIntakeAmount2) {
+                    calSum += Integer.parseInt(s);
                     Log.i("Cal", i + "times");
                 }
                 Log.i("Cal", calSum + "!");

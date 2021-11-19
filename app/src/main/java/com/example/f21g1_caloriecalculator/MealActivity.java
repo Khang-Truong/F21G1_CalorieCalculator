@@ -3,6 +3,7 @@ package com.example.f21g1_caloriecalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,7 +84,9 @@ public class MealActivity extends AppCompatActivity {
                 myMealsList.clear();
                 MealAdapter myMealAdapter = new MealAdapter(myMealsList);
                 listViewMeals.setAdapter(myMealAdapter);
+                startActivity(new Intent(MealActivity.this,Calendar.class));
             }
+
         });
 
         listViewMeals.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {

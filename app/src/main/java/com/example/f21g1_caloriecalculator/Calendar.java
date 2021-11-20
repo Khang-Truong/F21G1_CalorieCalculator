@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Calendar extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class Calendar extends AppCompatActivity {
     TextView textViewCalBurned;
     TextView textViewTDE;
     TextView textViewCalIntake;
-
+    TextView textViewSurplus;
 
 
     int currentDay;
@@ -59,20 +60,21 @@ public class Calendar extends AppCompatActivity {
         userId = sharedPreferences.getInt("UserId", -1);
         db = new DBHelper(Calendar.this);
 
-        CalendarView=findViewById(R.id.calendarView);
-        textViewTDE=findViewById(R.id.textViewTDE);
-        buttonGoFunctionPage=findViewById(R.id.buttonGoFunctionPage);
-        textViewCalBurned=findViewById(R.id.textViewCalBurned);
-        textViewCalIntake=findViewById(R.id.textViewCalIntake);
+        CalendarView = findViewById(R.id.calendarView);
+        textViewTDE = findViewById(R.id.textViewTDE);
+        buttonGoFunctionPage = findViewById(R.id.buttonGoFunctionPage);
+        textViewCalBurned = findViewById(R.id.textViewCalBurned);
+        textViewCalIntake = findViewById(R.id.textViewCalIntake);
+        textViewSurplus = findViewById(R.id.textViewSurplus);
 
 
+        double totalTDEE ;
+        double totalCaloriesBurned ;
+        double totalCaloriesIntake ;
+        double caloriesSurplus;
 
 
-
-
-        CalendarView.setDate(System.currentTimeMillis(),false,true );
-
-
+        CalendarView.setDate(System.currentTimeMillis(), false, true);
 
 
 //        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -80,20 +82,16 @@ public class Calendar extends AppCompatActivity {
 //        textViewExerciseRecord.setText(numberOfData);
 
 
-
-
         // check the current day, month, Year in integer.
         LocalDate currentdate = LocalDate.now();
-         currentDay = currentdate.getDayOfMonth();
-         currentMonth = getMonth();
-         currentYear = currentdate.getYear();
-
-
+        currentDay = currentdate.getDayOfMonth();
+        currentMonth = getMonth();
+        currentYear = currentdate.getYear();
 
 
         //============== display==================
-        //display in Edit Text Box
-        String key= String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay); //CaloriesBurn's key
+        //display in Text Box
+        String key = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay); //CaloriesBurn's key
         if (db.getTDEE(userId, key) == null) {
             try {
                 db.insertTDEE(userId, key, db.getTDEE(userId));
@@ -110,13 +108,12 @@ public class Calendar extends AppCompatActivity {
         } catch (Exception e) {
             nowData = null;
         }
-
         textViewTDE.setText(nowData);
 
         //display in CaloriesBurningBox
         String CaloriesBurnedAmount;
         try {
-            CaloriesBurnedAmount= db.getExerciseCal(userId, key);
+            CaloriesBurnedAmount = db.getExerciseCal(userId, key);
         } catch (Exception e) {
             CaloriesBurnedAmount = null;
         }
@@ -127,7 +124,7 @@ public class Calendar extends AppCompatActivity {
         //display in Calories Intake box
         List<String> CaloriesIntakeAmount;
         try {
-            CaloriesIntakeAmount= db.getMealData(userId, key);
+            CaloriesIntakeAmount = db.getMealData(userId, key);
             int calSum = 0;
 //            Log.i("Cal", "DB get meal ok!");
             for (String s : CaloriesIntakeAmount) {
@@ -142,33 +139,53 @@ public class Calendar extends AppCompatActivity {
         }
 
 
+        //========= Calculate surplus and display========
+
+        if (textViewTDE.getText().toString().isEmpty()) {
+            totalTDEE = 0;
+        } else {
+            totalTDEE = Double.parseDouble(textViewTDE.getText().toString());
+        }
+        if (textViewCalIntake.getText().toString().isEmpty()) {
+            totalCaloriesIntake = 0;
+        } else {
+            totalCaloriesIntake = Double.parseDouble(textViewCalIntake.getText().toString());
+        }
+        if (textViewCalBurned.getText().toString().isEmpty()) {
+            totalCaloriesBurned = 0;
+        } else {
+            totalCaloriesBurned = Double.parseDouble(textViewCalBurned.getText().toString());
+        }
 
 
-
-
-
-
+        caloriesSurplus = totalTDEE - (totalCaloriesIntake - totalCaloriesBurned);
+        textViewSurplus.setText(String.format("%.2f",caloriesSurplus));
+        //========= end Calculate surplus and display========
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Date",key);
+        editor.putString("Date", key);
         editor.commit();
 
 
+        //*************************************Calendar change listener******************************************
 
-        CalendarView.setOnDateChangeListener((@NonNull CalendarView calendarView, int i, int i1, int i2) ->{
+        CalendarView.setOnDateChangeListener((@NonNull CalendarView calendarView, int i, int i1, int i2) -> {
+
+
+
+
             textViewCalIntake.setText("");
             textViewTDE.setText("");
-            
-            // if click, set date to the chosen day
-            currentDay=i2;
-            currentMonth=i1+1;
-            currentYear=i;
 
+            // if click, set date to the chosen day
+            currentDay = i2;
+            currentMonth = i1 + 1;
+            currentYear = i;
 
 
             //============== display==================
             //display in Edit Text Box
-            String CurrentKey=String.valueOf(currentYear)+String.valueOf(currentMonth)+String.valueOf(currentDay);
+            String CurrentKey = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay);
             Log.i("Currentkey", CurrentKey);
             if (db.getTDEE(userId, CurrentKey) == null) {
                 try {
@@ -190,7 +207,7 @@ public class Calendar extends AppCompatActivity {
             //display in CaloriesBurningBox
             String CaloriesBurnedAmount2;
             try {
-                CaloriesBurnedAmount2= db.getExerciseCal(userId, CurrentKey);
+                CaloriesBurnedAmount2 = db.getExerciseCal(userId, CurrentKey);
             } catch (Exception e) {
                 CaloriesBurnedAmount2 = null;
             }
@@ -201,7 +218,7 @@ public class Calendar extends AppCompatActivity {
             //display in Calories Intake box
             List<String> CaloriesIntakeAmount2;
             try {
-                CaloriesIntakeAmount2= db.getMealData(userId, CurrentKey);
+                CaloriesIntakeAmount2 = db.getMealData(userId, CurrentKey);
                 int calSum = 0;
                 Log.i("Cal", "0");
                 for (String s : CaloriesIntakeAmount2) {
@@ -215,18 +232,47 @@ public class Calendar extends AppCompatActivity {
             }
 
 
+            //========= Calculate surplus and display========
 
+
+            double totalTDEEInDateChangeListener ;
+            double totalCaloriesBurnedInDateChangeListener ;
+            double totalCaloriesIntakeInDateChangeListener ;
+            double caloriesSurplusInDateChangeListener;
+
+            if (textViewTDE.getText().toString().isEmpty()) {
+
+                totalTDEEInDateChangeListener = 0;
+            } else {
+                totalTDEEInDateChangeListener = Double.parseDouble(textViewTDE.getText().toString());
+            }
+            if (textViewCalIntake.getText().toString().isEmpty()) {
+                totalCaloriesIntakeInDateChangeListener = 0;
+            } else {
+                totalCaloriesIntakeInDateChangeListener = Double.parseDouble(textViewCalIntake.getText().toString());
+            }
+            if (textViewCalBurned.getText().toString().isEmpty()) {
+                totalCaloriesBurnedInDateChangeListener = 0;
+            } else {
+                totalCaloriesBurnedInDateChangeListener = Double.parseDouble(textViewCalBurned.getText().toString());
+            }
+
+
+
+            caloriesSurplusInDateChangeListener = totalTDEEInDateChangeListener - (totalCaloriesIntakeInDateChangeListener - totalCaloriesBurnedInDateChangeListener);
+            textViewSurplus.setText(String.format("%.2f",caloriesSurplusInDateChangeListener));
+
+            //========= End of Calculating surplus and display========
 
             //sharePreference this date
             SharedPreferences.Editor editor1 = sharedPreferences.edit();
-            editor1.putString("Date",CurrentKey);
+            editor1.putString("Date", CurrentKey);
             editor1.commit();
         });
 
 
-
-        buttonGoFunctionPage.setOnClickListener((View view)-> {
-                startActivity(new Intent(Calendar.this,UserActivity.class));
+        buttonGoFunctionPage.setOnClickListener((View view) -> {
+            startActivity(new Intent(Calendar.this, UserActivity.class));
         });
     }
 
@@ -234,13 +280,13 @@ public class Calendar extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        TextView textViewTDE= findViewById(R.id.textViewTDE);
+        TextView textViewTDE = findViewById(R.id.textViewTDE);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if(!textViewTDE.getText().toString().isEmpty())
-        editor.putString("EditTextNow", textViewTDE.getText().toString());
+        if (!textViewTDE.getText().toString().isEmpty())
+            editor.putString("EditTextNow", textViewTDE.getText().toString());
         editor.commit();
     }
 

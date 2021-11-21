@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
     }
 
-
+    // Recreate the database
     public void reCreateDatabase() {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         MyDB.execSQL("drop Table if exists users");
@@ -43,6 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(MyDB);
     }
 
+    // Update TDEE to both table
     public void updateTDEE(String TDEE, String userId) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         MyDB.execSQL("Update users SET TDEE = ? where userId = ?", new String[] { TDEE, userId});
@@ -81,6 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else return false;
     }
 
+    // Get user detail
     public String[] getDetail(String name, String password, int userId) {
         String[] detail = new String[5];
         if (checkUserNamePassword(name, password)) {
@@ -104,6 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return detail;
     }
 
+    // Get user id by name and password
     public int getUserId(String name, String password) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         Cursor cursor=MyDB.rawQuery("Select userId from users where userName=? and password=?",new String[]{name, password});
@@ -114,6 +117,7 @@ public class DBHelper extends SQLiteOpenHelper {
         } else
             return -1;
     }
+
 
     public boolean insertTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
@@ -252,6 +256,33 @@ public class DBHelper extends SQLiteOpenHelper {
             else {
                 Log.i("GetMealData", "Cursor run " + cursor.getString(0) );
                 myMealData.add(cursor.getString(0));
+            }
+        }
+
+        return myMealData;
+    }
+
+    public List<String[]> getMealDetail(int userId, String date) {
+        SQLiteDatabase MyDB=this.getWritableDatabase();
+        List<String[]> myMealData = new ArrayList<>();
+        Log.i("GetMealData", date + " User ID is: " + userId);
+
+
+        Cursor cursor = MyDB.rawQuery("Select mealName, Calories from mealdata where userId= ? and date= ?",new String[]{String.format("%d", userId), date});
+
+        Log.i("GetMealData", "Cursor run " + cursor.getCount() );
+        cursor.moveToFirst();
+
+
+
+
+        myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0) == null)
+                break;
+            else {
+                Log.i("GetMealData", "Cursor run " + cursor.getString(0) );
+                myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
             }
         }
 

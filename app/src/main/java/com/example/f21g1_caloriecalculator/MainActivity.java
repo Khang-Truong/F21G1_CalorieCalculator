@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (signIn == true) {
             textViewWelcome = findViewById(R.id.textViewWelcome);
-            textViewWelcome.setText(String.format("Hi %s, welcome to use our APP", sharedpreferences.getString("Name", null)));
+            textViewWelcome.setText(String.format("Welcome to use our APP"));
         }
 
         btnLogIn.setOnClickListener((View v)->{

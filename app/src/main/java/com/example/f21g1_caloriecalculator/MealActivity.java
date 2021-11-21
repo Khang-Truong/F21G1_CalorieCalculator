@@ -21,12 +21,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MealActivity extends AppCompatActivity {
 
     ListView listViewMeals;
+    ListView listViewDisplayMeals;
     EditText editTextMeal;
     EditText editTextEstimateCalories;
     Button buttonAdd;
     Button buttonRemove;
     Button buttonSubmit;
     List<String[]> myMealsList;
+    List<String[]> displayList;
     int selectedNum;
 
     SharedPreferences sharedPreferences;
@@ -42,12 +44,14 @@ public class MealActivity extends AppCompatActivity {
         selectedNum = -1;
 
         myMealsList = new ArrayList<>();
+        myMealsList.add(new String[] {"Meals", "Calories"});
         sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         userId = sharedPreferences.getInt("UserId", -1);
         date = sharedPreferences.getString("Date", null);
         db = new DBHelper(MealActivity.this);
 
         listViewMeals = findViewById(R.id.ListtViewMeals);
+        listViewDisplayMeals = findViewById(R.id.ListViewDisplayMeal);
         editTextMeal = findViewById(R.id.editTextMealName);
         editTextEstimateCalories = findViewById(R.id.editTextEstimateCalories);
 
@@ -77,8 +81,13 @@ public class MealActivity extends AppCompatActivity {
                 Toast.makeText(this,"Please input some meal data!", Toast.LENGTH_SHORT).show();
             else {
                 for (String[] strings : myMealsList) {
+                    try {
+                        Integer.parseInt(strings[1]);
+                        Log.d("Meal Insert", db.insertMealData(userId, date, strings[0], strings[1]) + "!");
+                    } catch (Exception e) {
+                        continue;
+                    }
 
-                    Log.d("Meal Insert", db.insertMealData(userId, date, strings[0], strings[1]) + "!");
                 }
                 Toast.makeText(this, "The meal data is saved!", Toast.LENGTH_SHORT).show();
                 myMealsList.clear();
@@ -104,6 +113,17 @@ public class MealActivity extends AppCompatActivity {
             }
 
         });
+
+        try {
+            displayList = new ArrayList<>();
+            displayList = db.getMealDetail(userId, date);
+
+            MealAdapter mealAdapter1 = new MealAdapter(displayList);
+            listViewDisplayMeals.setAdapter(mealAdapter1);
+        } catch (Exception e) {
+            
+        }
+
 
 
 

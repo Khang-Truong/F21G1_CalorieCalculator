@@ -84,7 +84,7 @@ public class Calendar extends AppCompatActivity {
         currentYear = currentdate.getYear();
 
 
-        // First, Get the TDEE from user table and insert into calendar table with userID and Key(Date);
+        // Firstly, Get the TDEE from user table and insert into calendar table with userID and Key(Date);
         String key = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay); //CaloriesBurn's key
         if (db.getTDEE(userId, key) == null) {
             try {
@@ -176,8 +176,8 @@ public class Calendar extends AppCompatActivity {
             currentYear = i;
 
 
-
-
+            // need to have a new key(date) when click a specific day.
+            // Than put the TDEE from user table to calender table
             String CurrentKey = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay);
             Log.i("Currentkey", CurrentKey);
             if (db.getTDEE(userId, CurrentKey) == null) {

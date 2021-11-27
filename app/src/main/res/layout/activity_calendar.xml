@@ -30,11 +30,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="32dp"
         android:text="@string/txtCaloriesBurned"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textViewTDE"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
     <TextView
@@ -49,8 +49,8 @@
 
     <TextView
         android:id="@+id/textViewIIntake"
-        android:layout_width="120dp"
-        android:layout_height="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="32dp"
@@ -71,8 +71,8 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="32dp"
         android:text="@string/txtSurplus"
         app:layout_constraintStart_toEndOf="@+id/textViewCalIntake"

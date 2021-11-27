@@ -69,6 +69,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://www.youtube.com/watch?v=Cw-Wt4xKD2s&ab_channel=PamelaReif")));
 
+                // (getExerciseCal(userId,date)==null) means that haven't had ExerciseCal in this record in Calendar Database. We need to update it.
                 if(db.getExerciseCal(userId,date)==null){
                     db.updateExerciseCal(userId,date,"75");
                     Log.d("Try",db.getExerciseCal(userId,date)+"1");

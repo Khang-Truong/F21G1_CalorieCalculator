@@ -77,11 +77,6 @@ public class Calendar extends AppCompatActivity {
         CalendarView.setDate(System.currentTimeMillis(), false, true);
 
 
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        String numberOfData=sharedPreferences.getString("EditTextNow","");
-//        textViewExerciseRecord.setText(numberOfData);
-
-
         // check the current day, month, Year in integer.
         LocalDate currentdate = LocalDate.now();
         currentDay = currentdate.getDayOfMonth();
@@ -89,18 +84,18 @@ public class Calendar extends AppCompatActivity {
         currentYear = currentdate.getYear();
 
 
-        //============== display==================
-        //display in Text Box
+        // First, Get the TDEE from user table and insert into calendar table with userID and Key(Date);
         String key = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay); //CaloriesBurn's key
         if (db.getTDEE(userId, key) == null) {
             try {
                 db.insertTDEE(userId, key, db.getTDEE(userId));
             } catch (Exception e) {
-
+                Log.d("IO", e.getMessage());
             }
         }
 
-
+        //============== display part==================
+        // display TDEE from users table
         String nowData;
         try {
             nowData = db.getTDEE(userId);
@@ -110,7 +105,7 @@ public class Calendar extends AppCompatActivity {
         }
         textViewTDE.setText(nowData);
 
-        //display in CaloriesBurningBox
+        //display Calories Burned from calendar table
         String CaloriesBurnedAmount;
         try {
             CaloriesBurnedAmount = db.getExerciseCal(userId, key);
@@ -121,15 +116,13 @@ public class Calendar extends AppCompatActivity {
         textViewCalBurned.setText(CaloriesBurnedAmount);
 
 
-        //display in Calories Intake box
+        //display Calories Intake from mealdata table;
         List<String> CaloriesIntakeAmount;
         try {
             CaloriesIntakeAmount = db.getMealData(userId, key);
             int calSum = 0;
-//            Log.i("Cal", "DB get meal ok!");
             for (String s : CaloriesIntakeAmount) {
                 calSum += Integer.parseInt(s);
-//                Log.i("Cal", calSum + "!");
 
             }
             textViewCalIntake.setText(String.valueOf(calSum));
@@ -183,8 +176,8 @@ public class Calendar extends AppCompatActivity {
             currentYear = i;
 
 
-            //============== display==================
-            //display in Edit Text Box
+
+
             String CurrentKey = String.valueOf(currentYear) + String.valueOf(currentMonth) + String.valueOf(currentDay);
             Log.i("Currentkey", CurrentKey);
             if (db.getTDEE(userId, CurrentKey) == null) {
@@ -195,6 +188,8 @@ public class Calendar extends AppCompatActivity {
                 }
             }
 
+            //============== display==================
+            //display TDEE from users table
             String currentData;
             try {
                 currentData = db.getTDEE(userId);
@@ -204,7 +199,7 @@ public class Calendar extends AppCompatActivity {
 
             textViewTDE.setText(currentData);
 
-            //display in CaloriesBurningBox
+            //display Calories Burned from calendar table
             String CaloriesBurnedAmount2;
             try {
                 CaloriesBurnedAmount2 = db.getExerciseCal(userId, CurrentKey);
@@ -215,7 +210,7 @@ public class Calendar extends AppCompatActivity {
             textViewCalBurned.setText(CaloriesBurnedAmount2);
 
 
-            //display in Calories Intake box
+            //display Calories Intake from mealdata table;
             List<String> CaloriesIntakeAmount2;
             try {
                 CaloriesIntakeAmount2 = db.getMealData(userId, CurrentKey);
@@ -264,7 +259,7 @@ public class Calendar extends AppCompatActivity {
 
             //========= End of Calculating surplus and display========
 
-            //sharePreference this date
+            //sharePreference again, override the old "Date" in share preferences
             SharedPreferences.Editor editor1 = sharedPreferences.edit();
             editor1.putString("Date", CurrentKey);
             editor1.commit();
@@ -277,29 +272,11 @@ public class Calendar extends AppCompatActivity {
     }
 
 
-    protected void onPause() {
-        super.onPause();
-
-        TextView textViewTDE = findViewById(R.id.textViewTDE);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        if (!textViewTDE.getText().toString().isEmpty())
-            editor.putString("EditTextNow", textViewTDE.getText().toString());
-        editor.commit();
-    }
-
-
+    // to make the month into integer number;
     @RequiresApi(api = Build.VERSION_CODES.O)
     public int getMonth() {
         LocalDate today = LocalDate.now();
         int month = today.getMonthValue();
         return month;
     }
-
-//    public String displayCaloriesInBurningBox(int userId, String date){
-//        String Calories= db.getExerciseCal(userId,date);
-//        return Calories;
-//    }
 }

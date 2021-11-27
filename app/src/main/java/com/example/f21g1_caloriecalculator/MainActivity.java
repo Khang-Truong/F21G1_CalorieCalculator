@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogIn, btnSignUp;
     DBHelper DB;
     SharedPreferences sharedpreferences;
-    TextView textViewWelcome;
-    Boolean signIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +32,6 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp=findViewById(R.id.btnSignUp);
         DB=new DBHelper(MainActivity.this);
         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
-
-//        DB.reCreateDatabase();
-//        DB.updateExercise("1", "James");
-//        try {
-//            signIn = sharedpreferences.getBoolean("SignIn", false);
-//        } catch (Exception e) {
-//            signIn = false;
-//        }
-//
-//        if (signIn == true) {
-//            textViewWelcome = findViewById(R.id.textViewWelcome);
-//            textViewWelcome.setText(String.format("Welcome to use our APP"));
-//        }
 
         btnLogIn.setOnClickListener((View v)->{
             String name=editName.getText().toString();
@@ -70,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Name", name);
                         editor.putString("Password", pas);
                         editor.putInt("UserId", userId);
-//                        editor.putBoolean("SignIn", true);
                         editor.commit();
 
                         if(DB.getTDEE(userId)==null){ //this is a new user

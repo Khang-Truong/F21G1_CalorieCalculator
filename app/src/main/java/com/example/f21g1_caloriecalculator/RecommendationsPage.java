@@ -21,7 +21,7 @@ public class RecommendationsPage extends AppCompatActivity {
     RadioGroup radioGroup;
     DBHelper db;
     SharedPreferences sharedPreferences;
-    String TDEE;
+    String TDEE; //means Total Daily Energy Expenditure
     double bmr, weightDouble, heightDouble, ageDouble, sedentary, lightActive, moderateActive, veryActive, extraActive;
     DecimalFormat df;
 

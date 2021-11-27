@@ -23,41 +23,37 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewWelcome;
     Boolean signIn;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
 
         editName=findViewById(R.id.editTextName);
         editPass=findViewById(R.id.editTextPass);
         btnLogIn=findViewById(R.id.btnLogIn);
         btnSignUp=findViewById(R.id.btnSignUp);
         DB=new DBHelper(MainActivity.this);
-
+        sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
 
 //        DB.reCreateDatabase();
 //        DB.updateExercise("1", "James");
-        try {
-            signIn = sharedpreferences.getBoolean("SignIn", false);
-        } catch (Exception e) {
-            signIn = false;
-        }
-
-        if (signIn == true) {
-            textViewWelcome = findViewById(R.id.textViewWelcome);
-            textViewWelcome.setText(String.format("Welcome to use our APP"));
-        }
+//        try {
+//            signIn = sharedpreferences.getBoolean("SignIn", false);
+//        } catch (Exception e) {
+//            signIn = false;
+//        }
+//
+//        if (signIn == true) {
+//            textViewWelcome = findViewById(R.id.textViewWelcome);
+//            textViewWelcome.setText(String.format("Welcome to use our APP"));
+//        }
 
         btnLogIn.setOnClickListener((View v)->{
             String name=editName.getText().toString();
             String pas=editPass.getText().toString();
 
             //logic steps: 1st check editText is empty?
-            //2nd check account is already?
+            //2nd check account exists?
             try{
                 if(name.isEmpty()||pas.isEmpty()){
                     Toast.makeText(MainActivity.this, "If you have account already, please enter!", Toast.LENGTH_SHORT).show();
@@ -65,24 +61,22 @@ public class MainActivity extends AppCompatActivity {
                     Boolean isAccountExist=DB.checkUserNamePassword(name,pas);
                     if(isAccountExist==true){
                         Toast.makeText(MainActivity.this, "Welcome back "+name, Toast.LENGTH_SHORT).show();
-                        //chuyen qua homepage
                         int userId = DB.getUserId(name, pas);
 //                        Log.d("Debug",userId + "!");
-                        DB.getDetail(name, pas, userId);
+
                         // use the sharepreferences to share the preferences
                         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("Name", name);
                         editor.putString("Password", pas);
                         editor.putInt("UserId", userId);
-                        editor.putBoolean("SignIn", true);
+//                        editor.putBoolean("SignIn", true);
                         editor.commit();
 
-                        if(DB.getTDEE(userId)==null){
+                        if(DB.getTDEE(userId)==null){ //this is a new user
                             startActivity(new Intent(MainActivity.this,RecommendationsPage.class));
-                        }else{
-                            Intent myIntent = new Intent(MainActivity.this, Calendar.class);
-                            startActivity(myIntent);
+                        }else{ //this is an old user
+                            startActivity(new Intent(MainActivity.this, Calendar.class));
                         }
                     }else{
                         Toast.makeText(MainActivity.this, "Account is invalid.", Toast.LENGTH_SHORT).show();
@@ -91,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }catch (Exception e){
                 Log.e(TAG, e.getMessage());
             }
-
         });
 
         btnSignUp.setOnClickListener((View v)->{

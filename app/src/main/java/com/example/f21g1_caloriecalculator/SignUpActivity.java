@@ -48,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
                 //2nd check password and confirm password are the same?
                 //3rd check user name exist?
                 //4th if every thing is ok. Then insert data. If insert successful -> show alert
-                //after inserting, we will be navigated to recommendation page
+                //after inserting, we will be navigated to log-in page
                 if(name2.isEmpty()||pas2.isEmpty()||rePas.isEmpty()||age.isEmpty()||height.isEmpty()||weight.isEmpty()){
                     Toast.makeText(SignUpActivity.this, "Please enter all the fileds!", Toast.LENGTH_SHORT).show();
                 }else{
@@ -63,20 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Boolean insert=DB.insertData(name2,pas2, gender, age,height,weight);
                             if(insert==true){
                                 Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(SignUpActivity.this, "Register successfully! Name: "+name2+
-//                                        " Pass: "+pas2+" Gender: "+gender+" Age: "+age+" Height: "+
-//                                        height+" Weight: "+weight, Toast.LENGTH_SHORT).show();
-
-                                //create a bundle, put data to it, then navigate to empty page
-                                Intent myIntent=new Intent(SignUpActivity.this, MainActivity.class);
-//                                Bundle myBundle=new Bundle();
-//                                myBundle.putString("NAME",name2);
-//                                myBundle.putString("GENDER",gender);
-//                                myBundle.putString("AGE",age);
-//                                myBundle.putString("HEIGHT",height);
-//                                myBundle.putString("WEIGHT",weight);
-//                                myIntent.putExtras(myBundle);
-                                startActivity(myIntent);
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             }else {
                                 Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                             }
@@ -87,7 +74,6 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(SignUpActivity.this, "Confirm password is wrong!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }catch (Exception e){
                 Log.e(TAG, e.getMessage());
             }

@@ -85,24 +85,23 @@ public class DBHelper extends SQLiteOpenHelper {
     // Get user detail
     public String[] getDetail(String name, String password, int userId) {
         String[] detail = new String[5];
-        if (checkUserNamePassword(name, password)) {
+//        if (checkUserNamePassword(name, password)) {
             SQLiteDatabase myDB = this.getWritableDatabase();
             Cursor cursor = myDB.rawQuery("Select * from users where userId = ?", new String[] {String.format("%d", userId)});
 
             if (cursor.moveToFirst()) {
-                detail[0] = cursor.getString(3);
-                detail[1] = cursor.getString(4);
-                detail[2] = cursor.getString(5);
-                detail[3] = cursor.getString(6);
-                detail[4] = cursor.getString(7);
+                detail[0] = cursor.getString(3); //get gender
+                detail[1] = cursor.getString(4); //get age
+                detail[2] = cursor.getString(5); //get height
+                detail[3] = cursor.getString(6); //get weight
+                detail[4] = cursor.getString(7); //get TDEE
 //                Log.d("Cursor", detail[0]);
 //                Log.d("Cursor", detail[1]);
 //                Log.d("Cursor", detail[2]);
 //                Log.d("Cursor", detail[3]);
 //                Log.d("Cursor", detail[4]);
             }
-        }
-
+//        }
         return detail;
     }
 
@@ -118,7 +117,6 @@ public class DBHelper extends SQLiteOpenHelper {
             return -1;
     }
 
-
     public boolean insertTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -129,7 +127,6 @@ public class DBHelper extends SQLiteOpenHelper {
         long result=MyDB.insert("calendardata",null,contentValues);
         if(result==-1)return false;
         else return true;
-
     }
 
     public String getTDEE(int userId) {
@@ -163,7 +160,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
-
             MyDB.execSQL("Update calendardata SET TDEE = ? where userId = ? and date = ?", new String[] { dataInput, String.format("%d", userId), date});
             return true;
         } catch (Exception e) {
@@ -173,7 +169,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public String getFoodCal(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
-
         Cursor cursor=MyDB.rawQuery("Select foodCal from calendardata where userId=? and date=?",new String[]{String.format("%d", userId), date});
 
         if (cursor.moveToFirst()) {
@@ -198,7 +193,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public String getExerciseCal(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
-
         Cursor cursor=MyDB.rawQuery("Select exerciseCal from calendardata where userId=? and date=?",new String[]{String.format("%d", userId), date});
 
         if (cursor.moveToFirst()) {
@@ -240,14 +234,10 @@ public class DBHelper extends SQLiteOpenHelper {
         List<String> myMealData = new ArrayList<>();
         Log.i("GetMealData", date + " User ID is: " + userId);
 
-
         Cursor cursor = MyDB.rawQuery("Select Calories from mealdata where userId= ? and date= ?",new String[]{String.format("%d", userId), date});
 
         Log.i("GetMealData", "Cursor run " + cursor.getCount() );
         cursor.moveToFirst();
-
-
-
 
         myMealData.add(cursor.getString(0));
         while (cursor.moveToNext()) {
@@ -258,7 +248,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 myMealData.add(cursor.getString(0));
             }
         }
-
         return myMealData;
     }
 
@@ -267,14 +256,10 @@ public class DBHelper extends SQLiteOpenHelper {
         List<String[]> myMealData = new ArrayList<>();
         Log.i("GetMealData", date + " User ID is: " + userId);
 
-
         Cursor cursor = MyDB.rawQuery("Select mealName, Calories from mealdata where userId= ? and date= ?",new String[]{String.format("%d", userId), date});
 
         Log.i("GetMealData", "Cursor run " + cursor.getCount() );
         cursor.moveToFirst();
-
-
-
 
         myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
         while (cursor.moveToNext()) {
@@ -285,7 +270,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 myMealData.add(new String[] {cursor.getString(0), cursor.getString(1)});
             }
         }
-
         return myMealData;
     }
 
@@ -319,9 +303,4 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-
-
-
-
-
 }

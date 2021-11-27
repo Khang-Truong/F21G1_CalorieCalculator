@@ -37,6 +37,7 @@
     <string name="txtChooseExercise">Choose Exercise: </string>
     <string name="txtHowlong">How long did you work out (minutes)</string>
     <string name="txtGetResult">Display Total Calories</string>
+    <string name="buttonSaveDatabaseText">Save To Database</string>
     <string-array name="ExerciseArray">
         <item> Walking</item>
         <item> jogging</item>

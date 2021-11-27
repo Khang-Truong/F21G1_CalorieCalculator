@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Log.d("Debug",userId + "!");
 
                         // use the sharepreferences to share the preferences
-                        sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("Name", name);
                         editor.putString("Password", pas);

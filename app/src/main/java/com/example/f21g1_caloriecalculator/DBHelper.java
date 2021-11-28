@@ -95,11 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 detail[2] = cursor.getString(5);
                 detail[3] = cursor.getString(6);
                 detail[4] = cursor.getString(7);
-//                Log.d("Cursor", detail[0]);
-//                Log.d("Cursor", detail[1]);
-//                Log.d("Cursor", detail[2]);
-//                Log.d("Cursor", detail[3]);
-//                Log.d("Cursor", detail[4]);
+
             }
         }
 
@@ -118,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return -1;
     }
 
-
+    // Insert TDEE to calendar table
     public boolean insertTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -132,6 +128,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+    // Get TDEE from table users
     public String getTDEE(int userId) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
 
@@ -146,6 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    // Get TDEE from table calendardata
     public String getTDEE(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
 
@@ -160,6 +159,8 @@ public class DBHelper extends SQLiteOpenHelper {
             return null;
     }
 
+
+    // Update TDEE to calendardata
     public boolean updateTDEE(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
@@ -171,6 +172,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Get the total food calories from calendardata
     public String getFoodCal(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
 
@@ -186,6 +188,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    // Update the total food calories to calendardata
     public boolean updateFoodCal(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
@@ -196,6 +199,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    // Get exercise calories consumption to calendardata
     public String getExerciseCal(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
 
@@ -211,6 +216,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    // Update exercise consumption to calendardata
     public boolean updateExerciseCal(int userId, String date, String dataInput) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         try {
@@ -222,6 +228,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    // Insert meal data to mealdata
     public boolean insertMealData(int userId, String date, String mealName, String mealCal) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -235,6 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else return true;
     }
 
+    // Get all meal from mealdata
     public List<String> getMealData(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         List<String> myMealData = new ArrayList<>();
@@ -262,6 +271,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return myMealData;
     }
 
+    // get Meal detail from mealdata
     public List<String[]> getMealDetail(int userId, String date) {
         SQLiteDatabase MyDB=this.getWritableDatabase();
         List<String[]> myMealData = new ArrayList<>();
@@ -289,6 +299,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return myMealData;
     }
 
+    // Update the age
     public boolean updateAge(int userId, String age) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         try {
@@ -300,6 +311,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    // Update the Height
     public boolean updateHeight(int userId, String height) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         try {
@@ -310,6 +322,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Update the weight
     public boolean updateWeight(int userId, String weight) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         try {

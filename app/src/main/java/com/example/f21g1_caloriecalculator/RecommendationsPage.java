@@ -60,12 +60,6 @@ public class RecommendationsPage extends AppCompatActivity {
         db = new DBHelper(RecommendationsPage.this);
 
         try{
-//            Bundle bundle=getIntent().getExtras();
-//            String name = bundle.getString("NAME");
-//            String gender = bundle.getString("GENDER");
-//            String age = bundle.getString("AGE");
-//            String height = bundle.getString("HEIGHT");
-//            String weight = bundle.getString("WEIGHT");
 
             //calculate BMR (The Basal Metabolic Rate is the amount of calories your body needs while resting)
             Log.d("Detail", userId + "!");
@@ -106,18 +100,7 @@ public class RecommendationsPage extends AppCompatActivity {
 
 
 
-//            String outputStr="User name: "+name+"\n"+
-//                    "Gender: "+gender+"\n"+
-//                    "Age: "+age+"\n"+
-//                    "Height (inches): "+height+"\n"+
-//                    "Weight (lbs): "+weight+"\n"+"\n"+
-//                    "Basal Metabolic Rate (BMR): "+bmr+"\n"+"\n"+
-//                    "Your total calorie needs, "+"\n"+
-//                    "If your are sedentary: "+df.format(sedentary)+"\n"+
-//                    "If your do exercise 1-3 days/week: "+df.format(lightActive)+"\n"+
-//                    "If you do exercise 3-5 days/week: "+df.format(moderateActive)+"\n"+
-//                    "If you do exercise 6-7 days/week: "+df.format(veryActive)+"\n"+
-//                    "If you do very hard exercise and physical job or 2x training: "+df.format(extraActive);
+
             bmr = Double.parseDouble(df.format(bmr));
             textViewName.setText(name);
             textViewAge.setText(age);
@@ -130,6 +113,8 @@ public class RecommendationsPage extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        // Select the radio button to submit the exercise
         radioGroup.setOnCheckedChangeListener((RadioGroup group, int checkedId) -> {
             String result = "Your recommended calories amount is: ";
             if (radioGroup.getCheckedRadioButtonId() == R.id.radioButtonSedentary) {
@@ -151,6 +136,7 @@ public class RecommendationsPage extends AppCompatActivity {
 
         });
 
+        // Submit the exercise and TDEE to database
         buttonSubmitExercise.setOnClickListener((View view) -> {
             Toast.makeText(RecommendationsPage.this, "Save to Database Successful!", Toast.LENGTH_SHORT).show();
             db.updateTDEE(TDEE, String.valueOf(userId));

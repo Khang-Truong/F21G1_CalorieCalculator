@@ -40,9 +40,10 @@ public class MealActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
-
+        // Get the select item default = -1
         selectedNum = -1;
 
+        // Get user Info to put data into database
         myMealsList = new ArrayList<>();
         myMealsList.add(new String[] {"Meals", "Calories"});
         sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
@@ -61,6 +62,8 @@ public class MealActivity extends AppCompatActivity {
         MealAdapter mealAdapter = new MealAdapter(myMealsList);
         listViewMeals.setAdapter(mealAdapter);
 
+
+        // If click add, data will be add to the temp list
         buttonAdd.setOnClickListener((View view) -> {
             if (editTextMeal.getText().toString().isEmpty() || editTextEstimateCalories.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please fill meal name and estimated calories!", Toast.LENGTH_SHORT).show();
@@ -76,6 +79,8 @@ public class MealActivity extends AppCompatActivity {
             }
         });
 
+
+        // If click submit, the temp list will be upload
         buttonSubmit.setOnClickListener((View view) -> {
             if (myMealsList.isEmpty())
                 Toast.makeText(this,"Please input some meal data!", Toast.LENGTH_SHORT).show();
@@ -98,10 +103,13 @@ public class MealActivity extends AppCompatActivity {
 
         });
 
+
+        // Select the temp list to remove
         listViewMeals.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
             selectedNum = position;
         } );
 
+        // Remove the select item in temp list
         buttonRemove.setOnClickListener((View view) -> {
             if (selectedNum == -1) {
                 Toast.makeText(this, "Please select a meal!", Toast.LENGTH_SHORT).show();
@@ -121,7 +129,7 @@ public class MealActivity extends AppCompatActivity {
             MealAdapter mealAdapter1 = new MealAdapter(displayList);
             listViewDisplayMeals.setAdapter(mealAdapter1);
         } catch (Exception e) {
-            
+
         }
 
 

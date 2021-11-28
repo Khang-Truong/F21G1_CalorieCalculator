@@ -26,7 +26,7 @@ public class UserActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
 
         buttonDetail = findViewById(R.id.buttonDetail);
-
+        // To detail
         buttonDetail.setOnClickListener((View view) -> {
             startActivity(new Intent(UserActivity.this, RecommendationsPage.class));
         });
@@ -39,6 +39,7 @@ public class UserActivity extends AppCompatActivity {
             startActivity(new Intent(UserActivity.this, MainActivity.class));
         });
 
+        // To Exercise
         buttonExercise=findViewById(R.id.buttonExercise);
         buttonExercise.setOnClickListener((View view)-> {
 
@@ -46,6 +47,7 @@ public class UserActivity extends AppCompatActivity {
 
         });
 
+        // To meal
         buttonMeal = findViewById(R.id.buttonMeal);
         buttonMeal.setOnClickListener((View view) -> {
 
@@ -53,6 +55,7 @@ public class UserActivity extends AppCompatActivity {
 
         });
 
+        // To update
         buttonUpdate = findViewById(R.id.buttonUpdate);
         buttonUpdate.setOnClickListener((View view) -> {
             startActivity(new Intent(UserActivity.this, UserUpdate.class));

@@ -101,6 +101,7 @@ public class UserUpdate extends AppCompatActivity {
 
         textViewShowCalU.setText("Your original TDEE is: "  + TDEE);
 
+        // Get the TDEE update
         radioGroup.setOnCheckedChangeListener((RadioGroup group, int checkedId) -> {
             String result = "Your recommended calories amount is: ";
             if (!editTextHeightU.getText().toString().isEmpty()) {
@@ -143,8 +144,22 @@ public class UserUpdate extends AppCompatActivity {
 
         });
 
+
+        // Update the condition to database
         buttonUpdateExercise.setOnClickListener((View view) -> {
             Toast.makeText(UserUpdate.this, "Save to Database Successful!", Toast.LENGTH_SHORT).show();
+            if (!editTextHeightU.getText().toString().isEmpty()) {
+                height = editTextHeightU.getText().toString();
+                heightDouble = Double.parseDouble(height);
+            }
+            if (!editTextWeightU.getText().toString().isEmpty()) {
+                weight = editTextWeightU.getText().toString();
+                weightDouble = Double.parseDouble(weight);
+            }
+            if (!editTextAgeU.getText().toString().isEmpty()) {
+                age = editTextAgeU.getText().toString();
+                ageDouble = Double.parseDouble(age);
+            }
             db.updateTDEE(TDEE, String.valueOf(userId));
             db.updateAge(userId, age);
             db.updateHeight(userId, height);

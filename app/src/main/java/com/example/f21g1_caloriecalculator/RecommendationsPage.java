@@ -84,6 +84,8 @@ public class RecommendationsPage extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        // Select the radio button to submit the exercise
         radioGroup.setOnCheckedChangeListener((RadioGroup group, int checkedId) -> {
             sedentary = Double.parseDouble(df.format(bmr*1.2));
             lightActive = Double.parseDouble(df.format(bmr*1.375));
@@ -110,6 +112,7 @@ public class RecommendationsPage extends AppCompatActivity {
             }
         });
 
+          // Submit the exercise and TDEE to database
         buttonSave.setOnClickListener((View view) -> {
             Toast.makeText(RecommendationsPage.this, "Save to Database Successful!", Toast.LENGTH_SHORT).show();
             db.updateTDEE(TDEE, String.valueOf(userId)); //update TDEE in user table and calendar table

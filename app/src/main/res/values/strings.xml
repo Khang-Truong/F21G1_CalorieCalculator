@@ -23,10 +23,10 @@
     <string name="radioButtonFemaleText">Female</string>
     <string name="btnSaveData">Save Data</string>
     <string name="txtNote">Note: </string>
-    <string name="txtTDE">TDEE: </string>
-    <string name="txtCaloriesBurned">Calories Burned: </string>
-    <string name="txtCaloriesIntake">Calories Intake: </string>
-    <string name="txtSurplus">Surplus: </string>
+    <string name="txtTDE">TDEE(cal): </string>
+    <string name="txtCaloriesBurned">Calories Burned(cal): </string>
+    <string name="txtCaloriesIntake">Calories Intake(cal): </string>
+    <string name="txtSurplus">Surplus(cal): </string>
     <string name="txtGoFunctionMenu">Go Function Page</string>
     <string name="txtExerciseYouWant">Choose the exercise: </string>
     <string name="txtManuallyAddExerciseRecord">Manually add exercise records</string>

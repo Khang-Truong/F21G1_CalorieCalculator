@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
-
 // this is for testing
 public class ExamePerferencce extends AppCompatActivity {
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">F21G1_CalorieCalculator</string>
     <string name="txtViewTitleText">Calorie Calculator</string>
-    <string name="textViewWelcomeText">Welcome to my app!</string>
+    <string name="textViewWelcomeText">Welcome to use our APP</string>
     <string name="btnSignUpText">Sign Up</string>
     <string name="btnLogInText">Log In</string>
     <string name="editTextNameHint">User name</string>
@@ -37,6 +37,7 @@
     <string name="txtChooseExercise">Choose Exercise: </string>
     <string name="txtHowlong">How long did you work out (minutes)</string>
     <string name="txtGetResult">Display Total Calories</string>
+    <string name="buttonSaveDatabaseText">Save To Database</string>
     <string-array name="ExerciseArray">
         <item> Walking</item>
         <item> jogging</item>

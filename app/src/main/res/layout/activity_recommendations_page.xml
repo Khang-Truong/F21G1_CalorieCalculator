@@ -210,7 +210,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:text="hard exercise and physical job"
+            android:text="Hard exercise or physical job"
             app:layout_constraintStart_toStartOf="parent" />
     </RadioGroup>
 

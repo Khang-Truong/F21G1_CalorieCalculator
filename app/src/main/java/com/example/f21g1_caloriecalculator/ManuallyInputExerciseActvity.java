@@ -58,10 +58,12 @@ public class ManuallyInputExerciseActvity extends AppCompatActivity {
 
 
 
+
+        /* ===== display the total calories burned, it depends on the exercising type in the spinner  ===== */
         buttonGetResult.setOnClickListener((View view)-> {
             double totalCaloriesBurned=0;
             if(editTextTextPersonName.getText().toString().isEmpty()){
-                Toast.makeText(this, "Please input time", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please input how much time you exercised", Toast.LENGTH_SHORT).show();
             }else {
 
                 // if user choose walk, jog, bike
@@ -78,14 +80,16 @@ public class ManuallyInputExerciseActvity extends AppCompatActivity {
         });
 
 
-        buttonSaveData.setOnClickListener((View view)-> {
 
+        /* ===== update the ExerciseCal in the database calendar ===== */
+        buttonSaveData.setOnClickListener((View view)-> {
             double totalCaloriesBurned=0;
             if(editTextTextPersonName.getText().toString().isEmpty()){
-                Toast.makeText(this, "Please input time", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please input how much time you exercised", Toast.LENGTH_SHORT).show();
             }else {
 
                 // if user choose walk, jog, bike
+
                 if(spinnerExercise.getSelectedItemPosition()==0){
                     if(db.getExerciseCal(userId,date)==null){
                         totalCaloriesBurned= 2.84*Double.parseDouble(editTextTextPersonName.getText().toString());

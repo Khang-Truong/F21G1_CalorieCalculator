@@ -14,7 +14,9 @@ Project's name: Calorie Calculator
 
 Description: Users can track the calorie that they need, add the food’s calorie they consume every day and follow some exercise videos.
 
-This app uses Sharepreferences to save and retrieve data from database and SQLiteOpenHelper to manage database. All data will store in LoginDB.db. 
+This app uses Sharepreferences to save and retrieve data from database and SQLiteOpenHelper to manage database. 
+
+All data will store in LoginDB.db. 
 
 The database has 3 tables
 1.	Calendardata: stores userId, date, TDEE, food calorie, exercise calorie.

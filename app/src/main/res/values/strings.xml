@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">F21G1_CalorieCalculator</string>
     <string name="txtViewTitleText">Calorie Calculator</string>
-    <string name="textViewWelcomeText">Welcome to my app!</string>
+    <string name="textViewWelcomeText">Welcome to use our APP</string>
     <string name="btnSignUpText">Sign Up</string>
     <string name="btnLogInText">Log In</string>
     <string name="editTextNameHint">User name</string>
@@ -21,4 +21,27 @@
     <string name="editTextWeightHint">Weight (Lbs)</string>
     <string name="radioButtonMaleText">Male</string>
     <string name="radioButtonFemaleText">Female</string>
+    <string name="btnSaveData">Save Data</string>
+    <string name="txtNote">Note: </string>
+    <string name="txtTDE">TDEE(cal): </string>
+    <string name="txtCaloriesBurned">Calories Burned(cal): </string>
+    <string name="txtCaloriesIntake">Calories Intake(cal): </string>
+    <string name="txtSurplus">Surplus(cal): </string>
+    <string name="txtGoFunctionMenu">Go Function Page</string>
+    <string name="txtExerciseYouWant">Choose the exercise: </string>
+    <string name="txtManuallyAddExerciseRecord">Manually add exercise records</string>
+
+    <string name="mealname">Meal:</string>
+    <string name="mealcal">Estimate Calories:</string>
+
+    <string name="txtChooseExercise">Choose Exercise: </string>
+    <string name="txtHowlong">How long did you work out (minutes)</string>
+    <string name="txtGetResult">Display Total Calories</string>
+    <string name="buttonSaveDatabaseText">Save To Database</string>
+    <string-array name="ExerciseArray">
+        <item> Walking</item>
+        <item> jogging</item>
+        <item> Biking</item>
+    </string-array>
+
 </resources>

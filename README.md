@@ -34,3 +34,7 @@ The database has 3 tables
 ![mealPage](https://user-images.githubusercontent.com/62549740/166180038-24c1d684-f989-4dce-a71d-20b29c5726ad.png)
 ![exercisePage](https://user-images.githubusercontent.com/62549740/166180053-9d213190-175d-4194-ba41-a3f79cb029de.png)
 ![addExerciseRecord](https://user-images.githubusercontent.com/62549740/166180059-f8713e20-5204-47b6-9ca2-c1d68e05e042.png)
+
+# Contact
+- Kate Truong - khangtruong8385@gmail.com
+- Linkedin: https://www.linkedin.com/in/khangtruong8385/
